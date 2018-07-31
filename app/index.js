@@ -37,19 +37,42 @@ var processRequest = function(req,res) {
  	// Get the path and trim outside "/" off
  	var trimmedPath= parsedUrl.pathname.replace(/^\/+|\/+$/g,'');
 
- 	if(trimmedPath === "hello") {
- 		// Deliver the object response
- 		var payloadString = JSON.stringify(cannedResponse);
- 		res.setHeader("Content-Type", "application/json");
- 		res.writeHead(200);
- 		res.end(payloadString);
- 	} else {
- 		res.writeHead(404);
- 		res.end('ERROR: Page not found!');
- 	}
+ 	var handler = (handlers[trimmedPath] === undefined)?handlers.notFound:handlers[trimmedPath];
+    handler(req, function(statusCode, outputPayload){
+    	statusCode = (typeof(statusCode) === undefined)?200:statusCode;
+  		// Deal with object output
+    	if(typeof(outputPayload === "Object")) {
+ 			// Deliver the object response
+ 			outputPayload = JSON.stringify(outputPayload);
+ 			res.setHeader("Content-Type", "application/json");
+ 		} else if(typeofPayload === "undefined") {
+ 			outputPayload="";
+ 		}
+ 		res.writeHead(statusCode);
+ 		res.end(outputPayload);
+
+    });
 }
 
 // Start the server listening on Port 3000
 httpServer.listen(3000, function() {
 	console.log("The Server is listening on port 3000");
 });
+
+var handlers = {};
+
+// Hello Handler
+
+handlers.hello = function(data, callback) {
+  // Callback httpStatusCode, payload object
+  callback(200, cannedResponse);
+};
+
+handlers.notFound = function(data, callback) {
+  // Callback httpStatusCode
+  callback(404);
+};
+
+var routes = {
+	"hello" : handlers.hello
+};
