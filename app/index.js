@@ -14,6 +14,8 @@
 var http=require('http');
 var url=require('url');
 
+var routes = require('./lib/routes');
+
 // Curent Silly response object
 var cannedResponse = {
 	'message' : 'Hello World!',
@@ -59,20 +61,3 @@ httpServer.listen(3000, function() {
 	console.log("The Server is listening on port 3000");
 });
 
-var handlers = {};
-
-// Hello Handler
-
-handlers.hello = function(data, callback) {
-  // Callback httpStatusCode, payload object
-  callback(200, cannedResponse);
-};
-
-handlers.notFound = function(data, callback) {
-  // Callback httpStatusCode
-  callback(404);
-};
-
-var routes = {
-	"hello" : handlers.hello
-};
