@@ -11,3 +11,4 @@ Please create a simple "Hello World" API. Meaning:
 **Extensions**
 
 1. Routing leveraging a route and handlers objects to enable declarative definitions based on API URL paths.
+1. Refactor routes and handlers into separate library files.
