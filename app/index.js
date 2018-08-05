@@ -15,14 +15,7 @@ var http=require('http');
 var url=require('url');
 
 var routes = require('./lib/routes');
-
-// Curent Silly response object
-var cannedResponse = {
-	'message' : 'Hello World!',
-	'assignment' : 'Homework #1',
-	'class' : 'Pirple Node.js Masterclass',
-	'author' : 'Tim Robertson'
-};
+var handlers = require('./lib/handlers');
 
 // The server responds to all requests
 var httpServer = http.createServer(function(req,res){
