@@ -1,17 +1,27 @@
 /*
+ * Project: Pirple Node.js Masterclass assignment 1
+ * Description: Primary API service handler library
+ * Author: Tim Robertson
  *
- * Handler code for JSONapi example
+ * Based on work product provided during the class.
  *
+ * Note: Most of this initial release is hardcoded
+ *  and supports only http requests.
  */
 
 // Dependencies
+var helpers = require('./helpers');
 
-// Handlers
+
+// Handler functions
+
+
+module.exports=lib;
 var handlers = {};
 
 // Hello Handler
 
-// Curent Silly response object
+// Curent Silly response object for "Hello" output
 var cannedResponse = {
         'message' : 'Hello World!',
         'assignment' : 'Homework #1',
@@ -19,14 +29,19 @@ var cannedResponse = {
         'author' : 'Tim Robertson'
 };
 
-handlers.hello = function(data, callback) {
+lib.hello = function(data, callback) {
   // Callback httpStatusCode, payload object
   callback(200, cannedResponse);
 };
 
-handlers.notFound = function(data, callback) {
+
+// Not Found Handler
+
+lib.notFound = function(data, callback) {
   // Callback httpStatusCode
   callback(404);
 };
 
-module.exports = handlers;
+
+
+var lib = {};
